@@ -24,10 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Entities\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Models\Repository\" />
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
 
 </Project>
