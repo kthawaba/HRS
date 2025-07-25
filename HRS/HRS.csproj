@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\db\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Models\Repository\" />
   </ItemGroup>
