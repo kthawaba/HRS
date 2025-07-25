@@ -11,6 +11,6 @@ namespace HRS.Models.Entities
         public bool Status { get; set; }
         public DateTime CreatedDate { get; set; }
      
-        public List<Doctor> Doctor { get; set; }
+        public Doctor Doctor { get; set; }
     }
 }

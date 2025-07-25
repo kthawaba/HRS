@@ -8,7 +8,7 @@ namespace HRS.Models.Entities
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Mobile { get; set; }
-        public int UserTypeId { get; set; }
+      
         public bool Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public lK_UserType lK_UserType { get; set; }
