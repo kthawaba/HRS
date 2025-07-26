@@ -7,6 +7,6 @@
         public bool Status { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        public ICollection<User> User { get; set; } = [];
+        
     }
 }

@@ -1,8 +1,181 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using HRS.Models.ViewModels
+@model UserModelData
+		<!-- Carousel start-->
+		<div class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+			<img class="d-inline-block w-100 carsouel-img" src="~/image/doctor3-.jpg">
+					<div class="black-overlay"></div>
+					<div class="carsouel-text" data-aos="fade-up" data-aos-duration="600" data-aos-delay="800">
+						<h1>HRS </h1>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+					</div>
+
+					<div class="carsouel-text carsouel-text2" data-aos="fade-up" data-aos-duration="600" data-aos-delay="800">
+						<h5>
+							<h2>Welcome to  Hospital Reservation System</h2>
+						</h5>
+					</div>
+
+			 
+				 
+
+				<div class="col-md-3"></div>
+					<div class="carousel-buttons">
+						 
+			 
+						<div class="col-md-3">
+				 
+						</div>
+						<div class="col-md-6 col-sm-12">
+
+						<div class="row">	@Html.DropDownList("UserId", new SelectList(Model.UserModel, "Id", "UserName"), "Select User", new { @class = "form-control" })</div>
+						<hr />
+					<div class="row">
+						<button class="carsouel-button" onclick="Redirect()" data-aos="fade-up" data-aos-duration="600" data-aos-delay="800">Login</button>
+
+						@* <button class="carsouel-button" onclick="OnClick("function(){Redirect()}"" data-aos="fade-up" data-aos-duration="600" data-aos-delay="800">Login</button> *@
+						</div>
+							
+						</div>
+
+						<div class="col-md-3"></div>
+
+					 
+
+
+
+				</div>
+
+			</div>
+	</div>
+		<div class="card-deck mx-4 my-5">
+			<div class="table-header">
+				<h5> List of medical specialties</h5>
+			</div>
+			<div class="card" data-aos="zoom-in-down" data-aos-duration="600">
+				<div class="card-body card-body-table">
+
+					<div class="table-responsive">
+
+						<table class="table table-borderless table-hover">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Specialty Name</th>
+									<th scope="col">Description</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								@if (Model.LK_SpecialtiesModel != null && Model.LK_SpecialtiesModel.Any())
+								{
+									int counter = 1;
+									foreach (var item in Model.LK_SpecialtiesModel)
+									{
+										<tr>
+											<th scope="row">@counter</th>
+											<td>@item.SpecialtyName</td>
+											<td>@item.Description</td>
+										</tr>
+										counter++;
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="3" class="text-center">No Data .</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+		</div>
+
+		<div class="card-deck mx-4 my-5">
+			<div class="table-header">
+				<h5> List of doctors</h5>
+			</div>
+			<div class="card" data-aos="zoom-in-down" data-aos-duration="600">
+				<div class="card-body card-body-table">
+
+					<div class="table-responsive">
+
+						<table class="table table-borderless table-hover">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Specialty Name</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								@if (Model.DoctorsList != null && Model.DoctorsList.Any())
+								{
+									int counter = 1;
+									foreach (var item in Model.DoctorsList)
+									{
+										<tr>
+											<th scope="row">@counter</th>
+											<td>@item.Name</td>
+											<td>@item.LK_Specialties.SpecialtyName</td>
+
+										</tr>
+										counter++;
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="3" class="text-center">NO Data</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- /Carousel end-->
+		<!-- Cards start-->
+		
+	 </div>
+	 
+ @section Scripts{
+
+    <script>
+            function Redirect() {
+				 var selectedUserId = document.getElementById("UserId").value;
+                 debugger;
+				 if (selectedUserId) {
+					 if(selectedUserId=="1")
+					 {
+						 window.location.href = `/Admin/Index?userId=${selectedUserId}`;
+					 }
+                     else if(selectedUserId=="2")
+                        {
+							window.location.href = `/Doctor/Index?userId=${selectedUserId}`;
+                        }
+                        else if(selectedUserId==3)
+                        {
+							window.location.href = `/Patient/Index?userId=${selectedUserId}`;
+                        }
+				
+			} else {
+				alert("Please select a user.");
+			}
+	
+            }
+	</script>
+}

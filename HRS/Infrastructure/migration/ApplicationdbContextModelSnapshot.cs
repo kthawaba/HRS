@@ -27,9 +27,7 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("Getdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
@@ -60,7 +58,7 @@ namespace HRS.Infrastructure.migration
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Appointment", (string)null);
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.DaysWork", b =>
@@ -73,9 +71,7 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("Getdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DayOfWeekNO")
                         .HasColumnType("INTEGER");
@@ -102,7 +98,7 @@ namespace HRS.Infrastructure.migration
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("DaysWork", (string)null);
+                    b.ToTable("DaysWork");
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.Doctor", b =>
@@ -115,16 +111,13 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("Getdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("LK_SpecialtiesID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
@@ -140,7 +133,27 @@ namespace HRS.Infrastructure.migration
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Doctor", (string)null);
+                    b.ToTable("Doctor");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddUser = 1,
+                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(905),
+                            LK_SpecialtiesID = 1,
+                            Name = "Dr. khaled Abdullah",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AddUser = 2,
+                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(907),
+                            LK_SpecialtiesID = 2,
+                            Name = "Dr.Lana khaled",
+                            Status = true
+                        });
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.LK_Specialties", b =>
@@ -150,9 +163,7 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("Getdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -162,7 +173,6 @@ namespace HRS.Infrastructure.migration
 
                     b.Property<string>("SpecialtyName")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
@@ -170,10 +180,27 @@ namespace HRS.Infrastructure.migration
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecialtyName")
-                        .IsUnique();
+                    b.ToTable("LK_Specialtie");
 
-                    b.ToTable("lk_specialties", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1013),
+                            Description = "Heart..",
+                            SpecialtyCode = "CARD",
+                            SpecialtyName = "Cardiology",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1024),
+                            Description = "Brain ..",
+                            SpecialtyCode = "NEUR",
+                            SpecialtyName = "Neurology",
+                            Status = true
+                        });
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.Patient", b =>
@@ -183,9 +210,7 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("Getdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Mobile")
                         .IsRequired()
@@ -193,12 +218,11 @@ namespace HRS.Infrastructure.migration
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Patient", (string)null);
+                    b.ToTable("Patient");
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.User", b =>
@@ -208,9 +232,7 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("Getdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Mobile")
                         .IsRequired()
@@ -225,20 +247,46 @@ namespace HRS.Infrastructure.migration
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(5)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("lK_UserTypeId")
+                    b.Property<int>("UserTypeId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserName")
-                        .IsUnique();
+                    b.ToTable("User");
 
-                    b.HasIndex("lK_UserTypeId");
-
-                    b.ToTable("users", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(992),
+                            Mobile = "0507319204",
+                            Name = "System Admin",
+                            Status = true,
+                            UserName = "admin",
+                            UserTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(993),
+                            Mobile = "0551234567",
+                            Name = "Doctor Ali",
+                            Status = true,
+                            UserName = "Doctor",
+                            UserTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(995),
+                            Mobile = "0500206391",
+                            Name = "khaled",
+                            Status = true,
+                            UserName = "Patient",
+                            UserTypeId = 3
+                        });
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.lK_UserType", b =>
@@ -248,9 +296,7 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("Getdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
                         .HasColumnType("INTEGER");
@@ -261,7 +307,30 @@ namespace HRS.Infrastructure.migration
 
                     b.HasKey("Id");
 
-                    b.ToTable("lK_UserType", (string)null);
+                    b.ToTable("lK_UserType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1043),
+                            Status = true,
+                            UserTypeName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1044),
+                            Status = true,
+                            UserTypeName = "Doctor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1045),
+                            Status = true,
+                            UserTypeName = "Patient"
+                        });
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.Appointment", b =>
@@ -303,7 +372,7 @@ namespace HRS.Infrastructure.migration
                     b.HasOne("HRS.Models.Entities.LK_Specialties", "LK_Specialties")
                         .WithOne("Doctor")
                         .HasForeignKey("HRS.Models.Entities.Doctor", "LK_SpecialtiesID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HRS.Models.Entities.User", null)
@@ -311,17 +380,6 @@ namespace HRS.Infrastructure.migration
                         .HasForeignKey("UserId");
 
                     b.Navigation("LK_Specialties");
-                });
-
-            modelBuilder.Entity("HRS.Models.Entities.User", b =>
-                {
-                    b.HasOne("HRS.Models.Entities.lK_UserType", "lK_UserType")
-                        .WithMany("User")
-                        .HasForeignKey("lK_UserTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("lK_UserType");
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.Doctor", b =>
@@ -347,11 +405,6 @@ namespace HRS.Infrastructure.migration
                     b.Navigation("Appointment");
 
                     b.Navigation("Doctor");
-                });
-
-            modelBuilder.Entity("HRS.Models.Entities.lK_UserType", b =>
-                {
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

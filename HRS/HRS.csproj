@@ -25,8 +25,10 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\db\" />
-    <Folder Include="Models\ViewModels\" />
-    <Folder Include="Models\Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\plugins\fontawesome\.DS_Store" />
   </ItemGroup>
 
 </Project>

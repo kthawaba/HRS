@@ -1,10 +1,15 @@
 using HRS.Infrastructure.Extension;
+using HRS.Models.Repository.Interfaces;
+using HRS.Models.Repository.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDataBase(builder.Configuration);
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISpecialtiesRepository, SpecialtiesRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 
 var app = builder.Build();
 
