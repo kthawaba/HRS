@@ -10,7 +10,7 @@ namespace HRS.Models.Entities
         public string? Description { get; set; }
         public bool Status { get; set; }
         public DateTime CreatedDate { get; set; }
-     
-        public Doctor Doctor { get; set; }
+
+        public List<Doctor> Doctors { get; set; }
     }
 }

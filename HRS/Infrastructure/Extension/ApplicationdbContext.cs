@@ -1,4 +1,5 @@
-﻿using HRS.Models.Entities;
+﻿using HRS.Infrastructure.Configration;
+using HRS.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -29,16 +30,93 @@ namespace HRS.Infrastructure.Extension
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new DoctorConfig());
+            modelBuilder.ApplyConfiguration(new LK_SpecialtiesConfig());
             base.OnModelCreating(modelBuilder);
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<LK_Specialties>().HasData(
+        new LK_Specialties
+        {
+            Id = 1,
+            SpecialtyName = "Cardiology",
+            SpecialtyCode = "CARD",
+            Description = "Heart and cardiovascular specialist",
+            Status = true,
+            CreatedDate = DateTime.Now
+        },
+        new LK_Specialties
+        {
+            Id = 2,
+            SpecialtyName = "Neurology",
+            SpecialtyCode = "NEUR",
+            Description = "Brain and nervous system specialist",
+            Status = true,
+            CreatedDate = DateTime.Now
+        }
+    );
 
+            modelBuilder.Entity<lK_UserType>().HasData(
+               new lK_UserType
+               {
+                   Id = 1,
+                   UserTypeName = "Admin",
+                   Status = true,
+                   CreatedDate = DateTime.Now
+               },
+               new lK_UserType
+               {
+                   Id = 2,
+                   UserTypeName = "Doctor",
+                   Status = true,
+                   CreatedDate = DateTime.Now
+               },
+               new lK_UserType
+               {
+                   Id = 3,
+                   UserTypeName = "Patient",
+                   Status = true,
+                   CreatedDate = DateTime.Now
+               }
+           );
+            modelBuilder.Entity<User>().HasData(
+               new User
+               {
+                   Id = 1,
+                   Name = "System Admin",
+                   UserName = "admin",
+                   Mobile = "0507319204",
+                   Status = true,
+                   CreatedDate = DateTime.UtcNow,
+                   UserTypeId = 1
+               },
+               new User
+               {
+                   Id = 2,
+                   Name = "Doctor Ali",
+                   UserName = "Doctor",
+                   Mobile = "0551234567",
+                   Status = true,
+                   CreatedDate = DateTime.UtcNow,
+                   UserTypeId = 2
+               },
+               new User
+               {
+                   Id = 3,
+                   Name = "khaled",
+                   UserName = "Patient",
+                   Mobile = "0500206391",
+                   Status = true,
+                   CreatedDate = DateTime.UtcNow,
+                   UserTypeId = 3
+               }
+           );
             modelBuilder.Entity<Doctor>().HasData(
           new Doctor
           {
               Id = 1,
               Name = "Dr. khaled Abdullah",
               LK_SpecialtiesID = 1,
-              AddUser = 1,  
+              AddUser = 1,
               Status = true,
               CreatedDate = DateTime.UtcNow
           },
@@ -53,81 +131,9 @@ namespace HRS.Infrastructure.Extension
           }
       );
 
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 1,
-                    Name = "System Admin",
-                    UserName = "admin",
-                    Mobile = "0507319204",
-                    Status = true,
-                    CreatedDate = DateTime.UtcNow,
-                    UserTypeId = 1
-                },
-                new User
-                {
-                    Id = 2,
-                    Name = "Doctor Ali",
-                    UserName = "Doctor",
-                    Mobile = "0551234567",
-                    Status = true,
-                    CreatedDate = DateTime.UtcNow,
-                    UserTypeId = 2
-                },
-                new User
-                {
-                    Id = 3,
-                    Name = "khaled",
-                    UserName = "Patient",
-                    Mobile = "0500206391",
-                    Status = true,
-                    CreatedDate = DateTime.UtcNow,
-                    UserTypeId = 3
-                }
-            );
-            modelBuilder.Entity<LK_Specialties>().HasData(
-        new LK_Specialties
-        {
-            Id = 1,
-            SpecialtyName = "Cardiology",
-            SpecialtyCode = "CARD",
-            Description = "Heart..",
-            Status = true,
-            CreatedDate = DateTime.Now
-        },
-        new LK_Specialties
-        {
-            Id = 2,
-            SpecialtyName = "Neurology",
-            SpecialtyCode = "NEUR",
-            Description = "Brain ..",
-            Status = true,
-            CreatedDate = DateTime.Now
-        }
-    );
-            modelBuilder.Entity<lK_UserType>().HasData(
-                new lK_UserType
-                {
-                    Id = 1,
-                    UserTypeName = "Admin",
-                    Status = true,
-                    CreatedDate = DateTime.Now
-                },
-                new lK_UserType
-                {
-                    Id = 2,
-                    UserTypeName = "Doctor",
-                    Status = true,
-                    CreatedDate = DateTime.Now
-                },
-                new lK_UserType
-                {
-                    Id = 3,
-                    UserTypeName = "Patient",
-                    Status = true,
-                    CreatedDate = DateTime.Now
-                }
-            );
+
+
+
         }
     }
 }

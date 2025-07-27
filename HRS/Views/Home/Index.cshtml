@@ -158,24 +158,20 @@
             function Redirect() {
 				 var selectedUserId = document.getElementById("UserId").value;
                  debugger;
-				 if (selectedUserId) {
-					 if(selectedUserId=="1")
-					 {
-						 window.location.href = `/Admin/Index?userId=${selectedUserId}`;
-					 }
-                     else if(selectedUserId=="2")
-                        {
-							window.location.href = `/Doctor/Index?userId=${selectedUserId}`;
-                        }
-                        else if(selectedUserId==3)
-                        {
-							window.location.href = `/Patient/Index?userId=${selectedUserId}`;
-                        }
-				
-			} else {
-				alert("Please select a user.");
-			}
-	
+					  $.ajax({
+									type: 'GET',
+									async: false,
+								    url: `/Home/Get_UserData/${selectedUserId}`,
+									success: function (response) {
+
+												  window.location.href = response;
+									},
+									error: function (err) {
+
+									}
+
+								});
+                     
             }
 	</script>
 }

@@ -16,6 +16,8 @@ namespace HRS.Models.Repository.Services
 
         public async Task<List<LK_Specialties?>> Get_Specialties()
         {
+          
+
             return await context.LK_Specialtie.Where(a => a.Status == true).ToListAsync();
         }
     }

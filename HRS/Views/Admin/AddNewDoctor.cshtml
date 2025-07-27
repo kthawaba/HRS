@@ -1,0 +1,115 @@
+﻿@using HRS.Models.ViewModels
+@model DoctorModel
+<div class="card-deck mx-4 my-5">
+	
+	<div class="card" data-aos="zoom-in-down" data-aos-duration="600">
+		<div class="card-header">
+			<h5>
+				<i class="fas fa-tasks"></i>
+				Add New Doctor
+			</h5>
+		</div>
+		<form asp-action="Add" asp-controller="Doctor" method="post" id="receptForm">
+			@if (ViewData.ModelState["DaysWork"]?.Errors.Count > 0)
+			{
+				<div class="alert alert-danger">
+					@ViewData.ModelState["DaysWork"].Errors[0].ErrorMessage
+				</div>
+			}
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-2">
+					<label class="control-label ">Doctor Name</label>
+				</div>
+				<div class="col-md-4">
+					<input asp-for="Name" type="text" class="form-control">
+						<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="col-md-2">
+					<label asp-for="LK_SpecialtiesID" class="control-label">Specialty</label>
+				</div>
+				<div class="col-md-4">
+					@Html.DropDownList("LK_SpecialtiesID", new SelectList(Model.LK_SpecialtiesList, "Id", "SpecialtyName"), "Select Specialty", new { @class = "form-control" })
+						<span asp-validation-for="LK_SpecialtiesID" class="text-danger"></span>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-md-2">
+					Working Days|Times
+				</div>
+				<div class="col-md-10">
+					<div class="card-body card-body-table">
+
+						<div class="table-responsive">
+
+							<table class="table table-borderless table-hover">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Day</th>
+										<th scope="col">Start Time</th>
+										<th scope="col">End Time</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									@if (Model?.DaysWork?.Count > 0)
+									{
+										int counter = 1;
+										foreach (var item in Model.DaysWork)
+										{
+											<tr>
+												<th scope="row">@counter</th>
+
+												<td>
+													<input type="hidden" name="DaysWork[@(counter - 1)].DayOfWeekNO" value="@item.DayOfWeekNO" />
+													<input type="hidden" name="DaysWork[@(counter - 1)].DayOfWeekName" value="@item.DayOfWeekName" />
+													<input type="checkbox" name="DaysWork[@(counter - 1)].IsSelected" value="true" />
+													@item.DayOfWeekName
+												</td>
+
+												<td>
+													<input type="time" name="DaysWork[@(counter - 1)].StartTime" class="form-control" />
+												</td>
+
+												<td>
+													<input type="time" name="DaysWork[@(counter - 1)].EndTime" class="form-control" />
+												</td>
+											</tr>
+											counter++;
+										}
+									}
+									else
+									{
+										<tr>
+											<td colspan="4" class="text-center">NO Data</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+				<div class="row">
+					<div class="col-md-5">
+					</div>
+					<div class="col-md-2">
+						<button class="carsouel-button" type="submit">Save</button>
+					</div>
+					<div class="col-md-5">
+					</div>
+					
+				</div>
+</div>
+		</form>
+
+</div>
+
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

@@ -20,5 +20,9 @@ namespace HRS.Models.Repository.Services
         {
             return await  context.User.Where(a => a.Status == true).ToListAsync();
         }
+        public async Task<User> Get_User(int UserID)
+        {
+            return await context.User.SingleOrDefaultAsync(a => a.Id == UserID);
+        }
     }
 }

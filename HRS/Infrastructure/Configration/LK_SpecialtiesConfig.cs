@@ -13,7 +13,7 @@ namespace HRS.Infrastructure.Configration
             builder.Property(x => x.SpecialtyName).IsRequired().HasMaxLength(100);
             builder.HasIndex(x => x.SpecialtyName).IsUnique(true);
             builder.Property(x => x.CreatedDate).IsRequired().HasDefaultValueSql("Getdate()");
-            builder.HasOne(x=>x.Doctor).WithOne(x=>x.LK_Specialties).HasForeignKey<Doctor>(x=>x.LK_SpecialtiesID).OnDelete(DeleteBehavior.Restrict);
+            
 
         }
     }

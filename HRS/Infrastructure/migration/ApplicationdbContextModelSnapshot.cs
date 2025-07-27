@@ -111,13 +111,16 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("Getdate()");
 
                     b.Property<int>("LK_SpecialtiesID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
@@ -128,19 +131,18 @@ namespace HRS.Infrastructure.migration
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LK_SpecialtiesID")
-                        .IsUnique();
+                    b.HasIndex("LK_SpecialtiesID");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Doctor");
+                    b.ToTable("Doctor", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AddUser = 1,
-                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(905),
+                            CreatedDate = new DateTime(2025, 7, 26, 20, 50, 52, 106, DateTimeKind.Utc).AddTicks(5875),
                             LK_SpecialtiesID = 1,
                             Name = "Dr. khaled Abdullah",
                             Status = true
@@ -149,7 +151,7 @@ namespace HRS.Infrastructure.migration
                         {
                             Id = 2,
                             AddUser = 2,
-                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(907),
+                            CreatedDate = new DateTime(2025, 7, 26, 20, 50, 52, 106, DateTimeKind.Utc).AddTicks(5877),
                             LK_SpecialtiesID = 2,
                             Name = "Dr.Lana khaled",
                             Status = true
@@ -163,7 +165,9 @@ namespace HRS.Infrastructure.migration
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("Getdate()");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -173,6 +177,7 @@ namespace HRS.Infrastructure.migration
 
                     b.Property<string>("SpecialtyName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
@@ -180,14 +185,17 @@ namespace HRS.Infrastructure.migration
 
                     b.HasKey("Id");
 
-                    b.ToTable("LK_Specialtie");
+                    b.HasIndex("SpecialtyName")
+                        .IsUnique();
+
+                    b.ToTable("lk_specialties", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1013),
-                            Description = "Heart..",
+                            CreatedDate = new DateTime(2025, 7, 26, 23, 50, 52, 106, DateTimeKind.Local).AddTicks(5711),
+                            Description = "Heart and cardiovascular specialist",
                             SpecialtyCode = "CARD",
                             SpecialtyName = "Cardiology",
                             Status = true
@@ -195,8 +203,8 @@ namespace HRS.Infrastructure.migration
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1024),
-                            Description = "Brain ..",
+                            CreatedDate = new DateTime(2025, 7, 26, 23, 50, 52, 106, DateTimeKind.Local).AddTicks(5725),
+                            Description = "Brain and nervous system specialist",
                             SpecialtyCode = "NEUR",
                             SpecialtyName = "Neurology",
                             Status = true
@@ -260,7 +268,7 @@ namespace HRS.Infrastructure.migration
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(992),
+                            CreatedDate = new DateTime(2025, 7, 26, 20, 50, 52, 106, DateTimeKind.Utc).AddTicks(5850),
                             Mobile = "0507319204",
                             Name = "System Admin",
                             Status = true,
@@ -270,7 +278,7 @@ namespace HRS.Infrastructure.migration
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(993),
+                            CreatedDate = new DateTime(2025, 7, 26, 20, 50, 52, 106, DateTimeKind.Utc).AddTicks(5852),
                             Mobile = "0551234567",
                             Name = "Doctor Ali",
                             Status = true,
@@ -280,7 +288,7 @@ namespace HRS.Infrastructure.migration
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 7, 26, 10, 42, 40, 306, DateTimeKind.Utc).AddTicks(995),
+                            CreatedDate = new DateTime(2025, 7, 26, 20, 50, 52, 106, DateTimeKind.Utc).AddTicks(5853),
                             Mobile = "0500206391",
                             Name = "khaled",
                             Status = true,
@@ -313,21 +321,21 @@ namespace HRS.Infrastructure.migration
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1043),
+                            CreatedDate = new DateTime(2025, 7, 26, 23, 50, 52, 106, DateTimeKind.Local).AddTicks(5829),
                             Status = true,
                             UserTypeName = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1044),
+                            CreatedDate = new DateTime(2025, 7, 26, 23, 50, 52, 106, DateTimeKind.Local).AddTicks(5830),
                             Status = true,
                             UserTypeName = "Doctor"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 7, 26, 13, 42, 40, 306, DateTimeKind.Local).AddTicks(1045),
+                            CreatedDate = new DateTime(2025, 7, 26, 23, 50, 52, 106, DateTimeKind.Local).AddTicks(5831),
                             Status = true,
                             UserTypeName = "Patient"
                         });
@@ -370,9 +378,9 @@ namespace HRS.Infrastructure.migration
             modelBuilder.Entity("HRS.Models.Entities.Doctor", b =>
                 {
                     b.HasOne("HRS.Models.Entities.LK_Specialties", "LK_Specialties")
-                        .WithOne("Doctor")
-                        .HasForeignKey("HRS.Models.Entities.Doctor", "LK_SpecialtiesID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Doctors")
+                        .HasForeignKey("LK_SpecialtiesID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRS.Models.Entities.User", null)
@@ -391,8 +399,7 @@ namespace HRS.Infrastructure.migration
 
             modelBuilder.Entity("HRS.Models.Entities.LK_Specialties", b =>
                 {
-                    b.Navigation("Doctor")
-                        .IsRequired();
+                    b.Navigation("Doctors");
                 });
 
             modelBuilder.Entity("HRS.Models.Entities.Patient", b =>

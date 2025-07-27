@@ -25,63 +25,69 @@
     <title>HRS</title>
 </head>
 <body>
-	<div class="wrapper">
-		<!-- Navbar start-->
-
-        <nav class="navbar  navbar-expand-lg navbar-light bg-light sticky-top cos-navbar" style="display:flex;">
-
-			<a class="navbar-brand" href="#">
-                    <img src="~/image/doctor3-.jpg" width="70" height="40">
-                   
-			</a>
-
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item ">
-					<a class="nav-link" href="#">  Login  <i class="fas fa-sign-in-alt"></i> </a>
-				</li>
-
-
-			</ul>
-		</nav>
-
-        <nav class="navbar  navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="wrapper">
+        <nav class="navbar  navbar-expand-lg navbar-light bg-light sticky-topx">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
 
-            <div class="collapse navbar-collapse justify-content-center" id="navbarToggler">
+            <div class="collapse navbar-collapse justify-content-center" style=" display: flex; " id="navbarTogglerX">
                 <ul class="navbar-nav  mt-2 mt-lg-0">
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">الرئيسية </a>
+                        <a class="nav-link" asp-action="Index" asp-controller="Home" style="color:white">Home </a>
                     </li>
+                    @{
+                        var Rule = Context.Session.GetString("Rule");
+                        if (Rule == "admin")
+                        {
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="Index" asp-controller="Admin" style="color:white">List Of Doctors </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="Index" asp-controller="Patient" style="color:white" >Appointment list </a>
+                            </li>
+                             
+                        }
+                        else if (Rule == "Doctor")
+                        {
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="Index" asp-controller="Doctor" style="color:white" >List Of Doctors </a>
+                            </li>
+                             
+                        }
+                        else if (Rule == "Patient")
+                        {
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="Index" asp-controller="Patient" style="color:white" >Appointment list </a>
+                            </li>
+                             
+                        }
+                    }
+                    
+                    
+                    
                 </ul>
 
             </div>
         </nav>
-		<!-- /Navbar end-->
-		<!-- Carousel start-->
+        <!-- /Navbar end-->
+        <!-- Carousel start-->
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
         </div>
-		 
-        <!-- Footer -->
-        <footer id="sticky-footer" class="py-2 bg-darkblue">
-            <div class="container text-center footer">
-                <small> &copy; 2025 - HRS </small>
-            </div>
-        </footer>
-        <!-- /Footer end-->
-	</div>
 
 
-	
-     
-  
+    </div>
 
-     
+
+
+
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -99,21 +105,21 @@
                 $(document).ready(function(){
 
             // hide .navbar first
-            $(".navbar").hide();
+            // $(".navbar").hide();
 
             // fade in .navbar
-            $(function () {
-                $(window).scroll(function () {
-         // set distance user needs to scroll before we fadeIn navbar
-         if ($(this).scrollTop() > 400) {
-            $('.navbar').fadeIn();
-         } else {
-            $('.navbar').fadeOut();
-         }
-        });
+        //     $(function () {
+        //         $(window).scroll(function () {
+        //  // set distance user needs to scroll before we fadeIn navbar
+        //  if ($(this).scrollTop() > 400) {
+        //     $('.navbar').fadeIn();
+        //  } else {
+        //     $('.navbar').fadeOut();
+        //  }
+        // });
 
 
-            });
+        //     });
 
         });
             }(jQuery));

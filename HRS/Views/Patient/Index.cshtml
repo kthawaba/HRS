@@ -1,1 +1,128 @@
-﻿
+﻿@using HRS.Models.ViewModels
+@model AppointmentModel
+<div class="card-deck mx-4 my-5">
+
+	<div class="card" data-aos="zoom-in-down" data-aos-duration="600">
+		<div class="card-header">
+			<h5>
+				<i class="fas fa-tasks"></i>
+				List of Appointment
+			</h5>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-2">
+					<label class="control-label ">Specialty</label>
+				</div>
+				<div class="col-md-4">
+					@Html.DropDownList("LK_SpecialtiesID", new SelectList(Model.LK_Specialties, "Id", "SpecialtyName"), "Select Specialty", new { @class = "form-control", @id = "specialtyID" })
+					<span asp-validation-for="LK_SpecialtiesID" class="text-danger"></span>
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Doctor Name</label>
+				</div>
+				<div class="col-md-4">
+					@Html.DropDownList("DoctorId", new SelectList(Enumerable.Empty<SelectListItem>()), "Select Doctor", new { @class = "form-control", @id = "DoctorList" })
+
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-md-2">
+					<label class="control-label ">Date</label>
+				</div>
+				<div class="col-md-4">
+					<input asp-for="Date" type="date" class="form-control">
+					<span asp-validation-for="Date" class="text-danger"></span>
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Specialty</label>
+				</div>
+				<div class="col-md-4">
+					<button class="carsouel-button" type="submit">Search</button>
+				</div>
+			</div>
+			<hr />
+			<div class="card-body card-body-table">
+
+				<div class="table-responsive">
+
+					<table class="table table-borderless table-hover">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Specialty Name</th>
+								<th scope="col">Appointment</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model.DoctorModel?.Count > 0)
+							{
+								int counter = 1;
+								foreach (var item in Model.DoctorModel)
+								{
+									<tr>
+										<th scope="row">@counter</th>
+										<td>@item.Name</td>
+										<td>@item.LK_Specialties.SpecialtyName</td>
+										<td></td>
+
+									</tr>
+									counter++;
+								}
+							}
+							else
+							{
+								<tr>
+									<td colspan="3" class="text-center">NO Data</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		@section Scripts{
+
+    <script>
+				$(document).ready(function () {
+			$('#specialtyID').change(function () {
+				var specialtyId = $(this).val();
+				$('#DoctorList').empty(); 
+
+				if (specialtyId) {
+					$.ajax({
+						url: '/Doctor/Get_DoctorBySpecialtiesID',
+						type: 'GET',
+						data: { SpecialtiesID: specialtyId },
+						success: function (data) {
+							$('#DoctorList').append($('<option>', {
+								value: '',
+								text: 'Select Doctor'
+							}));
+							$.each(data, function (i, doctor) {
+								$('#DoctorList').append($('<option>', {
+									value: doctor.id,
+									text: doctor.name
+								}));
+							});
+						},
+						error: function () {
+							alert('Error loading doctors.');
+						}
+					});
+				} else {
+					$('#DoctorList').append($('<option>', {
+						value: '',
+						text: 'Select Doctor'
+					}));
+				}
+			});
+		});
+	</script>
+}
+ 

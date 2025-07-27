@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 using HRS.Models;
 using HRS.Models.Entities;
 using HRS.Models.Repository.Interfaces;
@@ -47,6 +48,36 @@ namespace HRS.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+        public async Task<IActionResult> Get_UserData(int ID)
+        {
+           User us=await  IUserReposit.Get_User(ID);
+            if(us == null)
+            {
+                return NotFound();
+            }
+            string userJson = JsonSerializer.Serialize(us);
+            HttpContext.Session.SetString("UserData", userJson);
+            if(us.UserTypeId == 1)
+            {
+                HttpContext.Session.SetString("Rule", "admin");
+                return Ok("/Admin/Index");
+                
+
+            }
+            else if (us.UserTypeId == 2)
+            {
+                HttpContext.Session.SetString("Rule", "Doctor");
+                return Ok("/Doctor/Index");
+                
+            }
+            else if (us.UserTypeId == 3)
+            {
+                HttpContext.Session.SetString("Rule", "Patient");
+                return Ok("/Patient/Index");
+                 
+            }
+            return BadRequest();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

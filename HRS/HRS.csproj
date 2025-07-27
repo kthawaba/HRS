@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\db\" />
+    <Folder Include="Infrastructure\migration\" />
   </ItemGroup>
 
   <ItemGroup>
