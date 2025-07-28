@@ -8,6 +8,8 @@ namespace HRS.Models.ViewModels
         public int Id { get; set; }
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Specialties is required")]
         public int LK_SpecialtiesID { get; set; }
         public int AddUser { get; set; }
         public bool Status { get; set; }

@@ -10,6 +10,8 @@ builder.Services.AddDataBase(builder.Configuration);
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISpecialtiesRepository, SpecialtiesRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IAppointmentRepositry, AppointmentRepositry>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout to 30 minutes

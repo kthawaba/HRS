@@ -41,29 +41,32 @@ namespace HRS.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(DoctorModel date)
         {
-            //if (date.DaysWork == null || !date.DaysWork.Any(d => d.IsSelected))
-            //{
-            //    ModelState.AddModelError("DaysWork", "Please select at least one day.");
-            //}
+            if (date.DaysWork == null || !date.DaysWork.Any(d => d.IsSelected))
+            {
+                ModelState.AddModelError("DaysWork", "Please select at least one day.");
 
-            //if (!ModelState.IsValid)
-            //{
-            //    var SpecialtiesList = await ISpecialtiesReposit.Get_Specialties();
-            //    DoctorModel data = new DoctorModel();
-            //    data.LK_SpecialtiesList = SpecialtiesList;
-            //    var Days = GetDaysOfWeek();
-            //    var List = Days.Select(s => new DayOfWeekModel
-            //    {
-            //        DayOfWeekNO = s.Index,
-            //        DayOfWeekName = s.DayName,
+                date.LK_SpecialtiesList = await ISpecialtiesReposit.Get_Specialties();
 
-            //    }).ToList();
-            //    data.DaysWork = List;
-            //    return View("~/Views/Admin/AddNewDoctor.cshtml", date);
-            //}
-            User us= JsonSerializer.Deserialize<User>(HttpContext.Session.GetString("UserData"));
+                return View("~/Views/Admin/AddNewDoctor.cshtml", date);
+            }
+            User us= JsonSerializer.Deserialize<User>(HttpContext.Session.GetString("UserData")!)!;
+            date.AddUser = us.Id;
             int add = await IDoctorReposit.Add(date);
-            return RedirectToAction("Index", "Admin");
+            if (add > 0)
+            {
+                TempData["SuccessMessage"] = "Doctor added successfully.";
+                ModelState.AddModelError("Doctor", "Doctor added successfully.");
+            }
+            else
+            {
+                ModelState.AddModelError("Doctor", "Failed to add doctor. Please try again.");
+                date.LK_SpecialtiesList = await ISpecialtiesReposit.Get_Specialties();
+
+                return View("~/Views/Admin/AddNewDoctor.cshtml", date);
+            }
+
+               
+                return RedirectToAction("Index", "Admin");
         }
         public List<(int Index, string DayName)> GetDaysOfWeek()
         {

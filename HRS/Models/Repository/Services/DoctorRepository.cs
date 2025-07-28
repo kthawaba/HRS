@@ -30,23 +30,26 @@ namespace HRS.Models.Repository.Services
             model.Name = data.Name;
             model.LK_SpecialtiesID = data.LK_SpecialtiesID;
             model.Status = true;
-            model.AddUser = 1;
+            model.AddUser = data.AddUser;
             model.CreatedDate = System.DateTime.Now;
             var r = context.Doctor.Add(model);
           int add=  await context.SaveChangesAsync();
-            var selectedDays = data.DaysWork
-         .Where(d => d.IsSelected)
-         .Select(d => new DaysWork
-         {
-            DoctorId = add,
-            DayOfWeekNO = d.DayOfWeekNO,
-            DayOfWeekName = d.DayOfWeekName,
-             StartTime = d.StartTime,  
-             EndTime = d.EndTime,
-         }).ToList();
+                var selectedDays = data.DaysWork
+             .Where(d => d.IsSelected)
+             .Select(d => new DaysWork
+             {
+                 DoctorId = model.Id,
+                 DayOfWeekNO = d.DayOfWeekNO,
+                 DayOfWeekName = d.DayOfWeekName,
+                 StartTime = d.StartTime,
+                 EndTime = d.EndTime,
+                 Status = true,
+                 CreatedDate = DateTime.Now,
+             }).ToList();
 
-            context.AddRange(selectedDays);
-            await context.SaveChangesAsync();
+                context.AddRange(selectedDays);
+                int addDays = await context.SaveChangesAsync();
+            
             return add;
         }
     }

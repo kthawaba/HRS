@@ -1,0 +1,60 @@
+﻿@using HRS.Models.ViewModels
+@model List<AppointmentModel>
+<div class="carousel slide" data-ride="carousel">
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<div class="card-deck mx-4 my-5">
+				<div class="table-header">
+					<h5> List of Booking</h5>
+
+				</div>
+
+				<div class="card" data-aos="zoom-in-down" data-aos-duration="600">
+
+					<div class="card-body card-body-table">
+
+						<div class="table-responsive">
+
+							<table class="table table-borderless table-hover">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Doctor</th>
+										<th scope="col">Patient Name</th>
+										<th scope="col">Date</th>
+										<th scope="col">Time</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									@if (Model?.Count > 0)
+									{
+										int counter = 1;
+										foreach (var item in Model)
+										{
+											<tr>
+												<th scope="row">@counter</th>
+												<td>@item.NameDoctor</td>
+												<td>@item.PatientName</td>
+												<td>@item.Date.ToString("yyyy-MM-dd")</td>
+												<td>@item.StartTime</td>
+
+											</tr>
+											counter++;
+										}
+									}
+									else
+									{
+										<tr>
+											<td colspan="3" class="text-center">NO Data</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

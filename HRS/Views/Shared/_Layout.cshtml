@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/plugins/fontawesome/fontawesome-all.css">
     <link rel="stylesheet" href="~/plugins/fontawesome/fontawesome.css">
     <!-- Bootstrap -->
-    <link href="~/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="~/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- Theme style -->
     <link rel="stylesheet" href="~/plugins/css/stylesheet.css">
     <link rel="stylesheet" href="~/aos-master/dist/aos.css">
@@ -34,32 +34,48 @@
 
             <div class="collapse navbar-collapse justify-content-center" style=" display: flex; " id="navbarTogglerX">
                 <ul class="navbar-nav  mt-2 mt-lg-0">
-                    <li class="nav-item ">
-                        <a class="nav-link" asp-action="Index" asp-controller="Home" style="color:white">Home </a>
-                    </li>
+                    
                     @{
                         var Rule = Context.Session.GetString("Rule");
                         if (Rule == "admin")
                         {
                             <li class="nav-item ">
-                                <a class="nav-link" asp-action="Index" asp-controller="Admin" style="color:white">List Of Doctors </a>
+                                <a class="nav-link" asp-action="Index" asp-controller="Home" style="color:white">Home </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" asp-action="Index" asp-controller="Patient" style="color:white" >Appointment list </a>
+                                <a class="nav-link" asp-action="Index" asp-controller="Admin" style="color:white">List Of Doctors </a>
                             </li>
-                             
+                           
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="Index" asp-controller="Patient" style="color:white">Book an appointment </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="ListBooking" asp-controller="Admin" style="color:white">
+                                    List of Booking
+                                </a>
+                            </li>
                         }
                         else if (Rule == "Doctor")
                         {
                             <li class="nav-item ">
+                                <a class="nav-link" asp-action="Index" asp-controller="Home" style="color:white">Home </a>
+                            </li>
+                            <li class="nav-item ">
                                 <a class="nav-link" asp-action="Index" asp-controller="Doctor" style="color:white" >List Of Doctors </a>
                             </li>
-                             
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="ListBooking" asp-controller="Admin" style="color:white">
+                                    List of Booking
+                                </a>
+                            </li>
                         }
                         else if (Rule == "Patient")
                         {
                             <li class="nav-item ">
-                                <a class="nav-link" asp-action="Index" asp-controller="Patient" style="color:white" >Appointment list </a>
+                                <a class="nav-link" asp-action="Index" asp-controller="Home" style="color:white">Home </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-action="Index" asp-controller="Patient" style="color:white">Book an appointment </a>
                             </li>
                              
                         }
@@ -81,13 +97,6 @@
 
 
     </div>
-
-
-
-
-
-
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -98,28 +107,12 @@
     <!-- Bootstrap -->
     <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/aos-master/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
             AOS.init();
 
             (function ($) {
                 $(document).ready(function(){
-
-            // hide .navbar first
-            // $(".navbar").hide();
-
-            // fade in .navbar
-        //     $(function () {
-        //         $(window).scroll(function () {
-        //  // set distance user needs to scroll before we fadeIn navbar
-        //  if ($(this).scrollTop() > 400) {
-        //     $('.navbar').fadeIn();
-        //  } else {
-        //     $('.navbar').fadeOut();
-        //  }
-        // });
-
-
-        //     });
 
         });
             }(jQuery));

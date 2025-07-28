@@ -1,6 +1,8 @@
-﻿using HRS.Models.Repository.Interfaces;
+﻿using HRS.Models.Entities;
+using HRS.Models.Repository.Interfaces;
 using HRS.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HRS.Controllers
 {
@@ -8,11 +10,13 @@ namespace HRS.Controllers
     {
         private readonly IDoctorRepository IDoctorReposit;
         private readonly ISpecialtiesRepository ISpecialtiesReposit;
-        public PatientController(IDoctorRepository IDoctorReposit, ISpecialtiesRepository iSpecialtiesReposit)
+        private readonly IPatientRepository IPatientReposit;
+        public PatientController(IDoctorRepository IDoctorReposit, ISpecialtiesRepository iSpecialtiesReposit, IPatientRepository IPatientReposit)
         {
 
             this.IDoctorReposit = IDoctorReposit;
-            ISpecialtiesReposit = iSpecialtiesReposit;
+            this.ISpecialtiesReposit = iSpecialtiesReposit;
+            this.IPatientReposit = IPatientReposit;
         }
         public async Task<IActionResult> Index()
         {
@@ -30,6 +34,13 @@ namespace HRS.Controllers
             appointmentModel.LK_Specialties = SpecialtiesList;
             return View(appointmentModel);
 
+        }
+
+        [HttpPost]
+        public async Task<int> Add(Patient date)
+        {
+            int add = await IPatientReposit.Add(date);
+            return add;
         }
     }
 }

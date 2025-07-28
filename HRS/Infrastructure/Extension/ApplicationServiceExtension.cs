@@ -5,6 +5,7 @@ namespace HRS.Infrastructure.Extension
 {
     public static class ApplicationServiceExtension
     {
+        // extension method to inject the database configuration
         public static IServiceCollection AddDataBase(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<ApplicationdbContext>(Option =>

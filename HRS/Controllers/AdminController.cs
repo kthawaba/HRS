@@ -8,11 +8,13 @@ namespace HRS.Controllers
     {
         private readonly IDoctorRepository IDoctorReposit;
         private readonly ISpecialtiesRepository ISpecialtiesReposit;
-        public AdminController(IDoctorRepository IDoctorReposit, ISpecialtiesRepository ISpecialtiesReposit)
+        private readonly IAppointmentRepositry IAppointmentReposit;
+        public AdminController(IDoctorRepository IDoctorReposit, ISpecialtiesRepository ISpecialtiesReposit, IAppointmentRepositry IAppointmentReposit)
         {
 
             this.IDoctorReposit = IDoctorReposit;
             this.ISpecialtiesReposit = ISpecialtiesReposit;
+            this.IAppointmentReposit = IAppointmentReposit;
         }
         public async Task<IActionResult> Index()
         {
@@ -26,7 +28,14 @@ namespace HRS.Controllers
             }).ToList();
             return View(Doctor);
         }
-        public async Task<IActionResult>  AddNewDoctor()
+        public async Task<IActionResult> ListBooking()
+        {
+
+            var AppointmentList = await IAppointmentReposit.Get_Booking();
+            return View(AppointmentList);
+        }
+
+        public async Task<IActionResult> AddNewDoctor()
         {
             var SpecialtiesList = await ISpecialtiesReposit.Get_Specialties();
             DoctorModel data = new DoctorModel();
@@ -34,19 +43,19 @@ namespace HRS.Controllers
             var Days = GetDaysOfWeek();
             var List = Days.Select(s => new DayOfWeekModel
             {
-                DayOfWeekNO=s.Index,
-                DayOfWeekName=s.DayName,
+                DayOfWeekNO = s.Index,
+                DayOfWeekName = s.DayName,
 
             }).ToList();
             data.DaysWork = List;
             return View(data);
-             
-            
+
+
         }
         public List<(int Index, string DayName)> GetDaysOfWeek()
         {
-            var days = new List<(int , string)>
-    {
+            var days = new List<(int, string)>
+              {
         (0, "Sunday"),
         (1, "Monday"),
         (2, "Tuesday"),
@@ -54,7 +63,7 @@ namespace HRS.Controllers
         (4, "Thursday"),
         (5, "Friday"),
         (6, "Saturday")
-    };
+               };
 
             return days;
         }

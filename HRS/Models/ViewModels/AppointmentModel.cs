@@ -6,7 +6,12 @@ namespace HRS.Models.ViewModels
     {
         public int Id { get; set; }
         public int PatientID { get; set; }
+        public string NameDoctor { get; set; }
+        public string PatientName { get; set; }
+        public string PatientMobile { get; set; }
+        
         public int DoctorId { get; set; }
+        public int AddUser { get; set; }
         public int LK_SpecialtiesID { get; set; }
         public DateTime Date { get; set; }
         public TimeOnly StartTime { get; set; }
@@ -16,6 +21,7 @@ namespace HRS.Models.ViewModels
 
         public List<LK_Specialties> LK_Specialties { get; set; } = [];
         public List<DoctorModel> DoctorModel { get; set; }
+        
        
 
     }
