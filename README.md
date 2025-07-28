@@ -30,6 +30,24 @@
 1. Download the project from GitHub
 2. Run the project using Visual Studio
 3. Recommendation: Download SQLite from the link https://sqlitebrowser.org/dl/
+# Project Implementation Phases
+- [x] Project Structure.
+- [x] Database Creation .
+- [x] Design Implementation .
+- [x] Home
+    - [x] Login
+    - [x] List of medical specialties
+    - [x] List of doctors.
+- [x] Admin .
+    - [X] Add New Doctor .
+    - [x] List Of Doctors) .
+    - [ ] List Of Appointment) .
+- [ ] Doctor .
+   - [X] List Of Doctors .
+   - [ ] My a Appointment .
+- [ ] Patient .
+   - [ ] Add a New Appointment .
+   - [ ] My a Appointment .
 
 
  
