@@ -40,14 +40,16 @@
     - [x] List of doctors.
 - [x] Admin .
     - [X] Add New Doctor .
-    - [x] List Of Doctors) .
-    - [ ] List Of Appointment) .
-- [ ] Doctor .
+    - [x] List Of Doctors .
+    - [x] Add a New Appointment .
+    - [x] List of Booking .
+    - [x] Specializations Management
+- [x] Doctor .
    - [X] List Of Doctors .
-   - [ ] My a Appointment .
-- [ ] Patient .
-   - [ ] Add a New Appointment .
-   - [ ] My a Appointment .
+   - [x] List of Booking .
+- [x] Patient .
+   - [x] Add a New Appointment .
+- [x] Finally, review and test.
 
 
  
