@@ -34,7 +34,17 @@ namespace HRS.Controllers
             var AppointmentList = await IAppointmentReposit.Get_Booking();
             return View(AppointmentList);
         }
+        public async Task<IActionResult> SpecialtiesManage()
+        {
+            var specialtiesList = await ISpecialtiesReposit.Get_Specialties();
+            var model = new LK_SpecialtiesModel
+            {
+                SpecialtiesModelList = specialtiesList.ToList(),
+            };
 
+            return View(model);
+        }
+        
         public async Task<IActionResult> AddNewDoctor()
         {
             var SpecialtiesList = await ISpecialtiesReposit.Get_Specialties();

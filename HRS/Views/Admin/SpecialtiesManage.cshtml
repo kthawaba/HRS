@@ -1,0 +1,177 @@
+﻿@using HRS.Models.ViewModels
+@model LK_SpecialtiesModel
+
+<div class="card-deck mx-4 my-5">
+
+    <div class="card" data-aos="zoom-in-down" data-aos-duration="600">
+        <div class="card-header">
+            <h5>
+                <i class="fas fa-tasks"></i>
+                Add a new specialty
+            </h5>
+        </div>
+       
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label ">Specialization</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="SpecialtyName" type="text" class="form-control">
+                        <span asp-validation-for="SpecialtyName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <label asp-for="SpecialtyCode" class="control-label">Specialty</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="SpecialtyCode" type="text" class="form-control">
+                        <span asp-validation-for="SpecialtyCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label ">Description</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="Description" type="text" class="form-control">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="carsouel-button" onclick="save()" >Save</button>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+
+
+                    <div class="card-body card-body-table">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-borderless table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Specialization</th>
+                                        <th scope="col">Specialty Code</th>
+                                        <th scope="col">Description</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model?.SpecialtiesModelList?.Count > 0)
+                                    {
+                                        int counter = 1;
+                                        foreach (var item in Model.SpecialtiesModelList)
+                                        {
+                                            <tr>
+                                                <th scope="row">@counter</th>
+
+                                                <td>
+
+                                                    @item.SpecialtyName
+                                                </td>
+
+                                                <td>
+                                                    @item.SpecialtyCode
+                                                </td>
+
+                                                <td>
+                                                    @item.Description
+                                                </td>
+                                            </tr>
+                                            counter++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="4" class="text-center">NO Data</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+   
+
+    </div>
+
+</div>
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 9999">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Appointment booked successfully!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 9999">
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="errorToastBody">
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        function save() {
+          const SpecialtyName = $('input[name="SpecialtyName"]').val();
+          const SpecialtyCode = $('input[name="SpecialtyCode"]').val();
+          const Description = $('input[name="Description"]').val();
+                      if (!SpecialtyName) {
+                      showErrorToast("Specialty Name is required.");
+                 return;
+             }
+                  if (!SpecialtyCode) {
+                      showErrorToast("Specialty Code is required.");
+                 return;
+             }
+             if (!Description) {
+                      showErrorToast("Description is required.");
+                 return;
+             }
+
+
+                 $.ajax({
+                     type: 'POST',
+                     url: '/Specialties/Add',
+                     data: {
+                         SpecialtyName: SpecialtyName,
+                         SpecialtyCode: SpecialtyCode,
+                         Description: Description
+                         
+                     },
+                     success: function (response) {
+                         show_ruslt();
+              const toastEl = document.getElementById('successToast');
+             const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+                         toast.show();
+                     },
+                     error: function () {
+                         showErrorToast("Failed to save data.");
+                     }
+                 });
+             }
+              function showErrorToast(message) {
+            $('#errorToastBody').text(message);
+            const errorToastEl = document.getElementById('errorToast');
+            const errorToast = new bootstrap.Toast(errorToastEl, { delay: 5000 });
+            errorToast.show();
+        }
+
+    </script>
+}

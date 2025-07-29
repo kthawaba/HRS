@@ -1,4 +1,6 @@
-﻿namespace HRS.Models.ViewModels
+﻿using HRS.Models.Entities;
+
+namespace HRS.Models.ViewModels
 {
     public class LK_SpecialtiesModel
     {
@@ -8,6 +10,7 @@
         public string? Description { get; set; }
         public bool Status { get; set; }
         public DateTime CreatedDate { get; set; }
+        public List<LK_Specialties> SpecialtiesModelList { get; set; }
 
     }
 }
