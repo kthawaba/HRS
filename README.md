@@ -43,12 +43,13 @@
     - [x] List Of Doctors .
     - [x] Add a New Appointment .
     - [x] List of Booking .
+    - [x] Specializations Management
 - [x] Doctor .
    - [X] List Of Doctors .
    - [x] List of Booking .
 - [x] Patient .
    - [x] Add a New Appointment .
-- [ ] Finally, review and test.
+- [x] Finally, review and test.
 
 
  
